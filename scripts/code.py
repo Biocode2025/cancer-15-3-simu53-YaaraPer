@@ -163,7 +163,7 @@ old_protein = RNA_prot(gene_as_RNA)
 
 is_changed = True
 
-while (is_changed)
+while (is_changed):
   num = random.randrange(1,101)
 
   # מוטציה של החלפת בסיס
@@ -204,25 +204,4 @@ while (is_changed)
   else:
     num_iteration = num_iteration + 1
 
-
-    
-
-
-
-
-
-
-# התוכנית מבצעת שלוש מוטציות נקודתיות בצורה אקראית לאורך הרצף.
-for i in range(3):
-  num = random.randrange(3)
-  if num == 1:
-    p53_genome = Mutate_DNA(p53_genome)
-  elif num == 2:
-    p53_genome = Insert_DNA(p53_genome)
-  else:
-    p53_genome = Delete_DNA(p53_genome)
-
-# קריאה לפונקציות- שעתוק ותרגום הרצף.
-gene_as_RNA = DNA_RNA_Cod(p53_genome)
-new_protein = RNA_prot(gene_as_RNA)
 
