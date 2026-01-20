@@ -135,7 +135,13 @@ def Mutate_DNA(seq):
 global RNA_codon_table
 RNA_codon_table = {}
 
+# הגדרת משתנים
 num_gen = 1000
+avg = 0
+p53_genome = ""
+new_HIV_genome = ""
+is_changed = True
+num_iteration = 0
 
 # פתיחת הקבצים
 p53_seq = open('data/human_p53_coding.txt', 'r')
@@ -144,8 +150,6 @@ codon_file = open('data/codon_AA (1).txt', 'r')
 # קריאה לפונקציה
 Read_dict(codon_file)
 
-p53_genome = ""
-new_HIV_genome = ""
 # קריאת הקובץ
 for line in p53_seq:
   line = line.rstrip('\r\n')
@@ -161,47 +165,58 @@ for line in p53_seq:
 gene_as_RNA = DNA_RNA_Cod(p53_genome)
 old_protein = RNA_prot(gene_as_RNA)
 
-is_changed = True
+# הגדרת רשימה
+iteration_list = []
 
-while (is_changed):
-  num = random.randrange(1,101)
+for h in range(num_gen):
+  while (is_changed):
+    num = random.randrange(1,101)
 
-  # מוטציה של החלפת בסיס
-  if num <= 98:
-    p53_genome = Mutate_DNA(p53_genome)   # האם להחשיב כמוטציה גם אם היא שקטה?
+    # מוטציה של החלפת בסיס
+    if num <= 98:
+      p53_genome = Mutate_DNA(p53_genome)   # האם להחשיב כמוטציה גם אם היא שקטה?
 
-  # מוטציה של הוספת בסיס עד שלושה בסיסים
-  elif num == 1:
-    num_bases = random.randrange(1,4)
-    if num_bases == 1:
-      p53_genome = Insert_DNA(p53_genome)
-    elif num_bases == 2:
-      for i in range(num_bases):
+    # מוטציה של הוספת בסיס עד שלושה בסיסים
+    elif num == 1:
+      num_bases = random.randrange(1,4)
+      if num_bases == 1:
         p53_genome = Insert_DNA(p53_genome)
+      elif num_bases == 2:
+        for i in range(num_bases):
+          p53_genome = Insert_DNA(p53_genome)
+      else:
+        for i in range(num_bases):
+          p53_genome = Insert_DNA(p53_genome)
+    
+    # מוטציה של הוספת בסיס עד שלושה בסיסים
     else:
-      for i in range(num_bases):
-        p53_genome = Insert_DNA(p53_genome)
-  
-  # מוטציה של הוספת בסיס עד שלושה בסיסים
-  else:
-    num_bases = random.randrange(1,4)
-    if num_bases == 1:
-      p53_genome = Delete_DNA(p53_genome)
-    elif num_bases == 2:
-      for i in range(num_bases):
+      num_bases = random.randrange(1,4)
+      if num_bases == 1:
         p53_genome = Delete_DNA(p53_genome)
+      elif num_bases == 2:
+        for i in range(num_bases):
+          p53_genome = Delete_DNA(p53_genome)
+      else:
+        for i in range(num_bases):
+          p53_genome = Delete_DNA(p53_genome)
+    
+    # קריאה לפונקציות- שעתוק ותרגום הרצף.
+    gene_as_RNA = DNA_RNA_Cod(p53_genome)
+    new_protein = RNA_prot(gene_as_RNA)
+
+    if Comp_seq(old_protein, new_protein) > 0:
+      is_changed = False
+    
     else:
-      for i in range(num_bases):
-        p53_genome = Delete_DNA(p53_genome)
+      num_iteration = num_iteration + 1
+
+  # סכימת מספר האיטרציות שלקח ללולאה הפנימית לעשות עד שנוצרה מוטציה (לא שקטה).
+  iteration_list[h] = num_iteration
   
-  # קריאה לפונקציות- שעתוק ותרגום הרצף.
-  gene_as_RNA = DNA_RNA_Cod(p53_genome)
-  new_protein = RNA_prot(gene_as_RNA)
 
-  if Comp_seq(old_protein, new_protein) > 0:
-    is_changed = False
-  
-  else:
-    num_iteration = num_iteration + 1
+# חישוב סכום מספר הדורות לקבלת מוטציה בגן (שאינה שקטה).
+total = sum(iteration_list)
 
-
+# חישוב ממוצע הדורות לקבלת מוטציה בגן (שאינה שקטה).
+avg = num_gen / total
+print(avg)
