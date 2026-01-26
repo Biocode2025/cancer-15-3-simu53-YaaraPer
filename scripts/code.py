@@ -169,3 +169,4 @@ original_genome = p53_genome
 
 # קריאה לפונקציות- שעתוק ותרגום הרצף.
 old_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
+print(old_protein)
