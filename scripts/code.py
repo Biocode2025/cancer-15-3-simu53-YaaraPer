@@ -222,3 +222,9 @@ for h in range(num_gen):
   iteration_list.append(num_iteration)
   num_iteration = 0
  
+# חישוב סכום מספר הדורות לקבלת מוטציה בגן (שאינה שקטה).
+total = sum(iteration_list)
+
+# חישוב ממוצע הדורות לקבלת מוטציה בגן (שאינה שקטה).
+avg = total / num_gen
+print(avg)
