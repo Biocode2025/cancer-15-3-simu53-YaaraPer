@@ -178,5 +178,41 @@ iteration_list = []
 
 for h in range(num_gen):
   old_genome = new_genome
-
   is_changed = True
+
+  while (is_changed):
+    num_iteration = num_iteration + 1
+    num = random.random(1,101)
+
+    # מוטציה של החלפת בסיס
+    if num <= 98:
+      p53_genome = Mutate_DNA(p53_genome)   # האם להחשיב כמוטציה גם אם היא שקטה?
+
+
+    # מוטציה של הוספת בסיס עד שלושה בסיסים
+    elif num == 99:
+      num_bases = random.randrange(1,4)
+      if num_bases == 1:
+        p53_genome = Insert_DNA(p53_genome)
+      elif num_bases == 2:
+        for i in range(num_bases):
+          p53_genome = Insert_DNA(p53_genome)
+      else:
+        for i in range(num_bases):
+          p53_genome = Insert_DNA(p53_genome)
+   
+    # מוטציה של הוספת בסיס עד שלושה בסיסים
+    else:
+      num_bases = random.randrange(1,4)
+      if num_bases == 1:
+        p53_genome = Delete_DNA(p53_genome)
+      elif num_bases == 2:
+        for i in range(num_bases):
+          p53_genome = Delete_DNA(p53_genome)
+      else:
+        for i in range(num_bases):
+          p53_genome = Delete_DNA(p53_genome)
+   
+    # קריאה לפונקציות- שעתוק ותרגום הרצף.
+    new_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
+
