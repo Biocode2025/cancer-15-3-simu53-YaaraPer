@@ -153,3 +153,17 @@ codon_file = open('data/codon_AA (1).txt', 'r')
 
 # קריאה לפונקציה
 Read_dict(codon_file)
+
+# קריאת הקובץ
+for line in p53_seq:
+  line = line.rstrip('\r\n')
+  if line == "":
+    continue
+  # רצף ה DNA מופיע בשורות שאינן מתחילות בסימן "<" לכן "נדלג" על שורה זו
+  if line[0] == ">":
+    continue
+ 
+  p53_genome = p53_genome + line
+
+
+original_genome = p53_genome
