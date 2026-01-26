@@ -166,7 +166,6 @@ for line in p53_seq:
  
   p53_genome = p53_genome + line
 
-old_genome = p53_genome
 
 # קריאה לפונקציות- שעתוק ותרגום הרצף.
 old_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
@@ -175,9 +174,8 @@ print(old_protein)
 # הגדרת רשימה
 iteration_list = []
 
-
+#old_genome = new_genome
 for h in range(num_gen):
-  old_genome = new_genome
   is_changed = True
 
   while (is_changed):
@@ -186,8 +184,7 @@ for h in range(num_gen):
 
     # מוטציה של החלפת בסיס
     if num <= 98:
-      p53_genome = Mutate_DNA(p53_genome)   # האם להחשיב כמוטציה גם אם היא שקטה?
-
+      p53_genome = Mutate_DNA(p53_genome)   
 
     # מוטציה של הוספת בסיס עד שלושה בסיסים
     elif num == 99:
@@ -215,4 +212,13 @@ for h in range(num_gen):
    
     # קריאה לפונקציות- שעתוק ותרגום הרצף.
     new_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
-
+    
+    if Comp_seq(old_protein, new_protein) > 0:
+      is_changed = False
+       
+       
+  old_protein = new_protein
+  # סכימת מספר האיטרציות שלקח ללולאה הפנימית לעשות עד שנוצרה מוטציה (לא שקטה).
+  iteration_list.append(num_iteration)
+  num_iteration = 0
+ 
