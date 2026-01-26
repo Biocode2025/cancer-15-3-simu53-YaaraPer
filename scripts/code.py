@@ -115,3 +115,25 @@ def Delete_DNA(seq):
   return change_genome
 #------------------------------------------------
 
+def Mutate_DNA(seq):
+  '''
+  הפונקציה בוחרת מיקום אקראי ברצף גנום ה- HIV ומחליפה במיקום זה את הנוקלאוטיד באופן רנדומלי ל- A/C/G/T.
+  מקבלת: seq.
+  מחזירה:change_genome
+  '''
+  nucleotide_list = ['T','G','C','A']
+ 
+  rand_nucleotide = random.choice(nucleotide_list)
+  rand_num = random.randrange(0,len(seq))
+ 
+  if seq[rand_num] != rand_nucleotide:
+    change_genome = seq[0:rand_num]+ rand_nucleotide + seq[(rand_num+1):]
+ 
+  else:
+    nucleotide_list.remove(rand_nucleotide)
+    rand_nucleotide = random.choice(nucleotide_list)
+    change_genome = seq[0:rand_num]+ rand_nucleotide + seq[(rand_num+1):]
+  return change_genome
+
+
+
