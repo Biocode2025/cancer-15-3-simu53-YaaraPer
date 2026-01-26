@@ -40,3 +40,31 @@ def Read_dict(fl):
    
   return RNA_codon_table
 #------------------------------------------------
+ 
+def RNA_prot(seq):
+  '''
+  הפונקציה מתרגמת את רצף ה- RNA לרצף חלבון.
+  מקבלת: seq.
+  מחזירה: protein_seq.
+  '''
+  protein_seq = ""
+  start = False
+  for i in range(0, len(seq), 3):
+    codon = seq[i:i+3]
+    if len(codon) < 3:
+      break
+   
+    curr_amino_acid = RNA_codon_table.get(codon,"-")
+   
+    if curr_amino_acid == "M":
+      start = True
+     
+    if start:
+      if curr_amino_acid == "*":
+        protein_seq = protein_seq + "*"
+        break
+     
+      protein_seq += curr_amino_acid
+ 
+  return protein_seq
+#------------------------------------------------
