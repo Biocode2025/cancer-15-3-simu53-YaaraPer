@@ -147,4 +147,9 @@ avg = 0
 p53_genome = ""
 num_iteration = 0
 
+# פתיחת הקבצים
+p53_seq = open('data/human_p53_coding.txt', 'r')
+codon_file = open('data/codon_AA (1).txt', 'r')
 
+# קריאה לפונקציה
+Read_dict(codon_file)
