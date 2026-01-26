@@ -68,3 +68,18 @@ def RNA_prot(seq):
  
   return protein_seq
 #------------------------------------------------
+
+def Comp_seq(old,new):
+  '''
+  הפונקציה בודקת כמה הבדלים קיימים בין הרצפים השונים ומחזירה את מספר ההבדלים.
+  מקבלת: old,new.
+  מחזירה: num_differences.
+  '''
+  num_differences = 0
+ 
+  for i in range(min(len(old), len(new))):
+    if old[i] != new[i]:
+      num_differences = num_differences + 1
+     
+  return num_differences  
+#------------------------------------------------
