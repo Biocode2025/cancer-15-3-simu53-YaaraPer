@@ -142,14 +142,14 @@ RNA_codon_table = {}
 
 
 # הגדרת משתנים
-num_gen = 100
+num_gen = 1000
 avg = 0
 p53_genome = ""
 num_iteration = 0
 new_genome = ""
 
 # פתיחת הקבצים
-p53_seq = open('data/human_p53_coding.txt', 'r')
+p53_seq = open('data/human_p53_coding (1).txt', 'r')
 codon_file = open('data/codon_AA (1).txt', 'r')
 
 # קריאה לפונקציה
@@ -180,7 +180,7 @@ for h in range(num_gen):
 
   while (is_changed):
     num_iteration = num_iteration + 1
-    num = random.random(1,101)
+    num = random.randint(1,100)
 
     # מוטציה של החלפת בסיס
     if num <= 98:
