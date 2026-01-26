@@ -134,6 +134,17 @@ def Mutate_DNA(seq):
     rand_nucleotide = random.choice(nucleotide_list)
     change_genome = seq[0:rand_num]+ rand_nucleotide + seq[(rand_num+1):]
   return change_genome
+#------------------------------------------------
 
+# תוכנית ראשית.
+global RNA_codon_table
+RNA_codon_table = {}
+
+
+# הגדרת משתנים
+num_gen = 100
+avg = 0
+p53_genome = ""
+num_iteration = 0
 
 
