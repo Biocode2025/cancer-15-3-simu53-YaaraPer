@@ -146,6 +146,7 @@ num_gen = 100
 avg = 0
 p53_genome = ""
 num_iteration = 0
+new_genome = ""
 
 # פתיחת הקבצים
 p53_seq = open('data/human_p53_coding.txt', 'r')
@@ -165,8 +166,17 @@ for line in p53_seq:
  
   p53_genome = p53_genome + line
 
-original_genome = p53_genome
+old_genome = p53_genome
 
 # קריאה לפונקציות- שעתוק ותרגום הרצף.
 old_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
 print(old_protein)
+
+# הגדרת רשימה
+iteration_list = []
+
+
+for h in range(num_gen):
+  old_genome = new_genome
+
+  is_changed = True
