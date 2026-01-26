@@ -99,4 +99,19 @@ def Insert_DNA(seq):
  
   return change_genome
 #------------------------------------------------
+  
+def Delete_DNA(seq):
+  '''
+  הפונקציה תחסיר נוקלאוטיד במיקום רנדומאלי.
+  מקבלת: seq.
+  מחזירה: change_genome.
+  '''
+  rand_num = random.randrange(0,len(seq))
+  rand_nucleotide = seq[rand_num]
  
+  change_genome = seq[:rand_num] + seq[rand_num + 1:]
+
+
+  return change_genome
+#------------------------------------------------
+
