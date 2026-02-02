@@ -174,54 +174,50 @@ print(old_protein)
 # הגדרת רשימה
 iteration_list = []
 
-#old_genome = new_genome
+# לולאה חיצונית- עובדת לפי מספר הדורות
 for h in range(num_gen):
   is_changed = True
 
+  # לולאה פנימית- מדמה את תהליך התרגום של החלבון, בה מתרחשות המוטציות והבדיקה של כמות המוטציות בכל דור.
   while (is_changed):
     num_iteration = num_iteration + 1
-    num = random.randint(1,100)
+    Mutate_rnd_num = random.randint(1,100)
+    frequency_rnd_num = random.randint(1,10000)
+    
+    # התדירות האפקטיבית להתרחשות מוטציה היא  1 ל 10000 אירועי תרגום לכן אם נקבל בהגרלה מספר אחד מבין 10000 מספרים תתרחש מוטציה כלשהי
+    if frequency_rnd_num == 1:
+      # מוטציה של החלפת בסיס
+      if Mutate_rnd_num <= 98:
+        p53_genome = Mutate_DNA(p53_genome)  
 
-    # מוטציה של החלפת בסיס
-    if num <= 98:
-      p53_genome = Mutate_DNA(p53_genome)   
-
-    # מוטציה של הוספת בסיס עד שלושה בסיסים
-    elif num == 99:
-      num_bases = random.randrange(1,4)
-      if num_bases == 1:
-        p53_genome = Insert_DNA(p53_genome)
-      elif num_bases == 2:
+      # מוטציה של הוספת בסיס עד שלושה בסיסים
+      elif Mutate_rnd_num == 99:
+        num_bases = random.randrange(1,4)
         for i in range(num_bases):
           p53_genome = Insert_DNA(p53_genome)
+      
+      # מוטציה של הוספת בסיס עד שלושה בסיסים
       else:
-        for i in range(num_bases):
-          p53_genome = Insert_DNA(p53_genome)
-   
-    # מוטציה של הוספת בסיס עד שלושה בסיסים
-    else:
-      num_bases = random.randrange(1,4)
-      if num_bases == 1:
-        p53_genome = Delete_DNA(p53_genome)
-      elif num_bases == 2:
+        num_bases = random.randrange(1,4)
         for i in range(num_bases):
           p53_genome = Delete_DNA(p53_genome)
-      else:
-        for i in range(num_bases):
-          p53_genome = Delete_DNA(p53_genome)
-   
+    
     # קריאה לפונקציות- שעתוק ותרגום הרצף.
     new_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
-    
-    if Comp_seq(old_protein, new_protein) > 0:
+
+    num_mutate = num_mutate + Comp_seq(old_protein, new_protein)
+    # היות ומספיקה מוטציה אחת לעצירת הדור
+    if num_mutate >= 1:
       is_changed = False
-       
-       
+      num_mutate = 0
+
+
+  # קריאה לפונקציות- שעתוק ותרגום הרצף.      
   old_protein = new_protein
   # סכימת מספר האיטרציות שלקח ללולאה הפנימית לעשות עד שנוצרה מוטציה (לא שקטה).
   iteration_list.append(num_iteration)
   num_iteration = 0
- 
+
 # חישוב סכום מספר הדורות לקבלת מוטציה בגן (שאינה שקטה).
 total = sum(iteration_list)
 
