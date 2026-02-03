@@ -153,19 +153,18 @@ def Mutate_DNA(seq):
 global RNA_codon_table
 RNA_codon_table = {}
 
-
 # הגדרת משתנים
 num_gen = 1000
 avg = 0
 p53_genome = ""
 num_iteration = 0
-new_genome = ""
 num_mutate = 0
+# הגדרת רשימה
+iteration_list = []
 
 # פתיחת הקבצים
 p53_seq = open('data/human_p53_coding (1).txt', 'r')
 codon_file = open('data/codon_AA (1).txt', 'r')
-
 # קריאה לפונקציה
 Read_dict(codon_file)
 
@@ -180,13 +179,8 @@ for line in p53_seq:
  
   p53_genome = p53_genome + line
 
-
 # קריאה לפונקציות- שעתוק ותרגום הרצף.
 old_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
-print(old_protein)
-
-# הגדרת רשימה
-iteration_list = []
 
 # לולאה חיצונית- עובדת לפי מספר הדורות
 for h in range(num_gen):
@@ -195,6 +189,8 @@ for h in range(num_gen):
   # לולאה פנימית- מדמה את תהליך התרגום של החלבון, בה מתרחשות המוטציות והבדיקה של כמות המוטציות בכל דור.
   while (is_changed):
     num_iteration = num_iteration + 1
+    
+    # הגרלת מספרים
     Mutate_rnd_num = random.randint(1,100)
     frequency_rnd_num = random.randint(1,10000)
     
@@ -207,14 +203,12 @@ for h in range(num_gen):
       # מוטציה של הוספת בסיס עד שלושה בסיסים
       elif Mutate_rnd_num == 99:
         num_bases = random.randrange(1,4)
-        for i in range(num_bases):
-          p53_genome = Insert_DNA(p53_genome)
+        p53_genome = Insert_DNA(p53_genome, num_bases)
       
       # מוטציה של הוספת בסיס עד שלושה בסיסים
       else:
         num_bases = random.randrange(1,4)
-        for i in range(num_bases):
-          p53_genome = Delete_DNA(p53_genome)
+        p53_genome = Delete_DNA(p53_genome, num_bases)
     
     # קריאה לפונקציות- שעתוק ותרגום הרצף.
     new_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
