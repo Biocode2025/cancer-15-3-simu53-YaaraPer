@@ -84,14 +84,25 @@ def Comp_seq(old,new):
   return num_differences  
 #------------------------------------------------
 
-def Insert_DNA(seq):
+def Insert_DNA(seq, num):
   '''
-  הפונקציה תכניס במיקום אקראי לרצף ה- DNA של הגן נוקלאוטיד נוסף.
+  הפונקציה תכניס במיקום אקראי לרצף ה- DNA של הגן נוקלאוטיד/ים נוסף.
   מקבלת: seq.
   מחזירה: change_genome.
   '''
   nucleotide_list = ['T','G','C','A']
- 
+  change_genome = ""
+
+
+  if num != 0 and num != 1:
+    for i in range(num):
+      change_genome = change_genome + random.choice(nucleotide_list)
+
+
+  if len(seq) == 0:
+     return seq
+
+
   rand_nucleotide = random.choice(nucleotide_list)
   rand_num = random.randrange(0,len(seq))
  
@@ -99,19 +110,21 @@ def Insert_DNA(seq):
  
   return change_genome
 #------------------------------------------------
-  
-def Delete_DNA(seq):
+ 
+def Delete_DNA(seq, num):
   '''
-  הפונקציה תחסיר נוקלאוטיד במיקום רנדומאלי.
+  הפונקציה תחסיר נוקלאוטיד/ים במיקום רנדומאלי.
   מקבלת: seq.
   מחזירה: change_genome.
   '''
+  if len(seq) == 0 and num < len(seq):
+    return seq
+
+
   rand_num = random.randrange(0,len(seq))
   rand_nucleotide = seq[rand_num]
  
-  change_genome = seq[:rand_num] + seq[rand_num + 1:]
-
-
+  change_genome = seq[:rand_num] + seq[rand_num + num:]
   return change_genome
 #------------------------------------------------
 
@@ -147,6 +160,7 @@ avg = 0
 p53_genome = ""
 num_iteration = 0
 new_genome = ""
+num_mutate = 0
 
 # פתיחת הקבצים
 p53_seq = open('data/human_p53_coding (1).txt', 'r')
