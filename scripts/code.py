@@ -162,6 +162,7 @@ num_mutate = 0
 # הגדרת רשימה
 iteration_list = []
 
+
 # פתיחת הקבצים
 p53_seq = open('data/human_p53_coding (1).txt', 'r')
 codon_file = open('data/codon_AA (1).txt', 'r')
@@ -185,7 +186,7 @@ old_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
 # לולאה חיצונית- עובדת לפי מספר הדורות
 for h in range(num_gen):
   is_changed = True
-
+  
   # לולאה פנימית- מדמה את תהליך התרגום של החלבון, בה מתרחשות המוטציות והבדיקה של כמות המוטציות בכל דור.
   while (is_changed):
     num_iteration = num_iteration + 1
@@ -210,18 +211,15 @@ for h in range(num_gen):
         num_bases = random.randrange(1,4)
         p53_genome = Delete_DNA(p53_genome, num_bases)
     
-    # קריאה לפונקציות- שעתוק ותרגום הרצף.
-    new_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
+      # קריאה לפונקציות- שעתוק ותרגום הרצף.
+      new_protein = RNA_prot(DNA_RNA_Cod(p53_genome))
 
-    num_mutate = num_mutate + Comp_seq(old_protein, new_protein)
-    # היות ומספיקה מוטציה אחת לעצירת הדור
-    if num_mutate >= 1:
-      is_changed = False
-      num_mutate = 0
+      num_mutate = num_mutate + Comp_seq(old_protein, new_protein)
+      # היות ומספיקה מוטציה אחת לעצירת הדור
+      if num_mutate >= 1:
+        is_changed = False
+        num_mutate = 0
 
-
-  # קריאה לפונקציות- שעתוק ותרגום הרצף.      
-  old_protein = new_protein
   # סכימת מספר האיטרציות שלקח ללולאה הפנימית לעשות עד שנוצרה מוטציה (לא שקטה).
   iteration_list.append(num_iteration)
   num_iteration = 0
@@ -231,4 +229,4 @@ total = sum(iteration_list)
 
 # חישוב ממוצע הדורות לקבלת מוטציה בגן (שאינה שקטה).
 avg = total / num_gen
-print(avg)
+print("Average number of generations (DNA replication events) to obtain a mutation in a gene: %.2f " %avg)
